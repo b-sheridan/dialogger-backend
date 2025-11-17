@@ -23,7 +23,7 @@ class Character(Base):
     __tablename__ = 'characters'
 
     id: Mapped[int] = mapped_column(primary_key=True)
-    title_id: Mapped[int] = mapped_column(ForeignKey('title.id'), nullable=False)
+    title_id: Mapped[int] = mapped_column(ForeignKey('titles.id'), nullable=False)
     name: Mapped[str] = mapped_column(String(200), nullable=False)
 
     title: Mapped[Title] = relationship(back_populates='characters')
