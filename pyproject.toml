@@ -9,7 +9,7 @@ dependencies = [
     "openai",
     "pydantic",
     "python-dotenv",
-    "psycopg[binary]"
+    "psycopg[binary]",
     "sqlalchemy",
     "uvicorn[standard]",
 ]
