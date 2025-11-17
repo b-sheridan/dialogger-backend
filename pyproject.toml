@@ -15,7 +15,7 @@ dependencies = [
 ]
 
 [tool.ruff]
-line-length = 120
+line-length = 130
 select = ["E", "F", "I"]
 ignore = []
 fix = true
