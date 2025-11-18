@@ -1,29 +1,6 @@
 from __future__ import annotations
 
-import pytest
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
-
-from app.models import Base, Title
-
-
-# Use SQLite in-memory DB for tests
-TEST_DATABASE_URL = 'sqlite:///:memory:'
-
-
-@pytest.fixture
-def session():
-    engine = create_engine(TEST_DATABASE_URL, future=True)
-    TestingSession = sessionmaker(bind=engine, autoflush=False, autocommit=False, future=True)
-
-    # Create fresh schema for each test
-    Base.metadata.create_all(bind=engine)
-
-    db = TestingSession()
-    try:
-        yield db
-    finally:
-        db.close()
+from app.models import Title
 
 
 def test_can_insert_and_query_title(session):
@@ -40,3 +17,8 @@ def test_can_insert_and_query_title(session):
     assert result.name == 'Test Work'
     assert result.slug == 'test-work'
     assert result.id
+
+
+def test_example_scene(example_scene):
+    assert example_scene.id is not None
+    assert example_scene.lines != []
