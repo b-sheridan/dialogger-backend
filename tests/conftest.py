@@ -28,7 +28,7 @@ def session():
 
 @pytest.fixture
 def example_scene(session):
-    xenogears = Title(name='Xenogears', slug='xenogears')
+    xenogears = Title(name='Xenogears')
 
     fei = Character(name='フェイ', title=xenogears)
     aruru = Character(name='アルル', title=xenogears)

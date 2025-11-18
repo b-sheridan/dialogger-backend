@@ -4,5 +4,6 @@ openai
 psycopg[binary]
 pydantic
 python-dotenv
+python-slugify
 sqlalchemy
 uvicorn[standard]

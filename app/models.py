@@ -1,7 +1,8 @@
 from __future__ import annotations
 
-from sqlalchemy import ForeignKey, String, Text
+from sqlalchemy import event, ForeignKey, String, Text
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
+from slugify import slugify
 
 
 class Base(DeclarativeBase):
@@ -17,6 +18,12 @@ class Title(Base):
 
     characters: Mapped[list[Character]] = relationship(back_populates='title', cascade='all, delete-orphan')
     scenes: Mapped[list[Scene]] = relationship(back_populates='title', cascade='all, delete-orphan')
+
+
+@event.listens_for(Title, 'before_insert')
+def generate_slug(mapper, connection, target):
+    if not target.slug:
+        target.slug = slugify(target.name)
 
 
 class Character(Base):

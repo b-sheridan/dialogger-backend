@@ -5,7 +5,7 @@ from pydantic import BaseModel
 
 class TitleBase(BaseModel):
     name: str
-    slug: str
+    slug: str | None = None
 
 
 class TitleCreate(TitleBase):

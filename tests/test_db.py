@@ -5,7 +5,7 @@ from app.models import Title
 
 def test_can_insert_and_query_title(session):
     # Insert a row
-    title = Title(name='Test Work', slug='test-work')
+    title = Title(name='Test Work')
     session.add(title)
     session.commit()
     session.refresh(title)
