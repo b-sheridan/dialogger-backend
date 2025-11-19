@@ -16,7 +16,6 @@ class Title(Base):
     name: Mapped[str] = mapped_column(String(200), nullable=False)
     slug: Mapped[str] = mapped_column(String(200), nullable=False, unique=True)
 
-    characters: Mapped[list[Character]] = relationship(back_populates='title', cascade='all, delete-orphan')
     scenes: Mapped[list[Scene]] = relationship(back_populates='title', cascade='all, delete-orphan')
 
 
@@ -24,17 +23,6 @@ class Title(Base):
 def generate_slug(mapper, connection, target):
     if not target.slug:
         target.slug = slugify(target.name)
-
-
-class Character(Base):
-    __tablename__ = 'characters'
-
-    id: Mapped[int] = mapped_column(primary_key=True)
-    title_id: Mapped[int] = mapped_column(ForeignKey('titles.id'), nullable=False)
-    name: Mapped[str] = mapped_column(String(200), nullable=False)
-
-    title: Mapped[Title] = relationship(back_populates='characters')
-    lines: Mapped[list[Line]] = relationship(back_populates='character')
 
 
 class Scene(Base):
@@ -54,11 +42,10 @@ class Line(Base):
 
     id: Mapped[int] = mapped_column(primary_key=True)
     scene_id: Mapped[int] = mapped_column(ForeignKey('scenes.id'), nullable=False)
-    character_id: Mapped[int | None] = mapped_column(ForeignKey('characters.id'))
     position: Mapped[int] = mapped_column(nullable=False, default=0)
+    speaker: Mapped[str | None] = mapped_column(Text, nullable=True)
     original_text: Mapped[str] = mapped_column(Text, nullable=False)
     translated_text: Mapped[str | None] = mapped_column(Text, nullable=True)
     notes: Mapped[str | None] = mapped_column(Text, nullable=True)
 
     scene: Mapped[Scene] = relationship(back_populates='lines')
-    character: Mapped[Character] = relationship(back_populates='lines')

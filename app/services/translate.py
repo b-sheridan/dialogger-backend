@@ -19,8 +19,8 @@ def get_prompt(line: Line) -> str:
         parts.append(f'Scene: {line.scene.name}.')
     for dialog in line.scene.lines:
         parts.append('-------')
-        if dialog.character and dialog.character.name:
-            parts.append(f'{dialog.character.name}: {dialog.original_text}')
+        if dialog.speaker:
+            parts.append(f'{dialog.speaker}: {dialog.original_text}')
         else:
             parts.append(dialog.original_text)
     return '\n'.join(parts)
