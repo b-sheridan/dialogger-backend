@@ -3,16 +3,16 @@ from __future__ import annotations
 from pydantic import BaseModel
 
 
-class TitleBase(BaseModel):
+class ProjectBase(BaseModel):
     name: str
     slug: str | None = None
 
 
-class TitleCreate(TitleBase):
+class ProjectCreate(ProjectBase):
     pass
 
 
-class TitleOut(TitleBase):
+class ProjectOut(ProjectBase):
     id: int
 
     class Config:
@@ -20,13 +20,13 @@ class TitleOut(TitleBase):
 
 
 class SceneCreate(BaseModel):
-    title_id: int
+    project_id: int
     name: str
 
 
 class SceneOut(BaseModel):
     id: int
-    title_id: int
+    project_id: int
     name: str
 
     class Config:

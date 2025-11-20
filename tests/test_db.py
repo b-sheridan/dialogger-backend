@@ -1,21 +1,21 @@
 from __future__ import annotations
 
-from app.models import Title
+from app.models import Project
 
 
-def test_can_insert_and_query_title(session):
+def test_can_insert_and_query_project(session):
     # Insert a row
-    title = Title(name='Test Work')
-    session.add(title)
+    project = Project(name='Test Project')
+    session.add(project)
     session.commit()
-    session.refresh(title)
+    session.refresh(project)
 
     # Query it back
-    result = session.query(Title).filter_by(slug='test-work').first()
+    result = session.query(Project).filter_by(slug='test-project').first()
 
     assert result is not None
-    assert result.name == 'Test Work'
-    assert result.slug == 'test-work'
+    assert result.name == 'Test Project'
+    assert result.slug == 'test-project'
     assert result.id
 
 

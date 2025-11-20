@@ -2,12 +2,12 @@ from __future__ import annotations
 
 from fastapi import APIRouter, FastAPI
 
-from app.routers import scenes, titles
+from app.routers import projects, scenes
 
 
 api = APIRouter()
+api.include_router(projects.router, prefix='/projects', tags=['projects'])
 api.include_router(scenes.router, prefix='/scenes', tags=['scenes'])
-api.include_router(titles.router, prefix='/titles', tags=['titles'])
 
 app = FastAPI(
     openapi_url='/api/openapi.json',

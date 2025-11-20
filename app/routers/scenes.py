@@ -29,7 +29,7 @@ def get_scene(scene_id: int, db: Session = Depends(get_db)):
 @router.post('/', response_model=SceneOut)
 def create_scene(payload: SceneCreate, db: Session = Depends(get_db)):
     scene = Scene(
-        title_id=payload.title_id,
+        project_id=payload.project_id,
         name=payload.name
     )
     db.add(scene)

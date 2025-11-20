@@ -4,7 +4,7 @@ import pytest
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-from app.models import Base, Line, Scene, Title
+from app.models import Base, Line, Project, Scene
 
 
 # Use SQLite in-memory DB for tests
@@ -49,10 +49,10 @@ def session():
 
 @pytest.fixture
 def example_scene(session):
-    xenogears = Title(name='Xenogears')
+    xenogears = Project(name='Xenogears')
 
     scene = Scene(
-        title=xenogears,
+        project=xenogears,
         name='プロローグ、フェイとアルル',
         lines=[
             Line(

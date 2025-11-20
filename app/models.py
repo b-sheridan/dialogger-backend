@@ -9,17 +9,17 @@ class Base(DeclarativeBase):
     pass
 
 
-class Title(Base):
-    __tablename__ = 'titles'
+class Project(Base):
+    __tablename__ = 'projects'
 
     id: Mapped[int] = mapped_column(primary_key=True)
     name: Mapped[str] = mapped_column(String(200), nullable=False)
     slug: Mapped[str] = mapped_column(String(200), nullable=False, unique=True)
 
-    scenes: Mapped[list[Scene]] = relationship(back_populates='title', cascade='all, delete-orphan')
+    scenes: Mapped[list[Scene]] = relationship(back_populates='project', cascade='all, delete-orphan')
 
 
-@event.listens_for(Title, 'before_insert')
+@event.listens_for(Project, 'before_insert')
 def generate_slug(mapper, connection, target):
     if not target.slug:
         target.slug = slugify(target.name)
@@ -29,11 +29,11 @@ class Scene(Base):
     __tablename__ = 'scenes'
 
     id: Mapped[int] = mapped_column(primary_key=True)
-    title_id: Mapped[int] = mapped_column(ForeignKey('titles.id'), nullable=False)
+    project_id: Mapped[int] = mapped_column(ForeignKey('projects.id'), nullable=False)
     name: Mapped[str | None] = mapped_column(String(200), nullable=True)
     position: Mapped[int] = mapped_column(nullable=False, default=0)
 
-    title: Mapped[Title] = relationship(back_populates='scenes')
+    project: Mapped[Project] = relationship(back_populates='scenes')
     lines: Mapped[list[Line]] = relationship(back_populates='scene', cascade='all, delete-orphan', order_by='Line.position')
 
 

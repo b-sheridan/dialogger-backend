@@ -12,7 +12,7 @@ client = AsyncOpenAI(api_key=OPENAI_API_KEY)
 
 def get_prompt(line: Line) -> str:
     parts = [
-        f'Translate a line of dialog from {line.scene.title.name}.',
+        f'Translate a line of dialog from {line.scene.project.name}.',
         'Return ONLY the translation for the last line of dialog.',
     ]
     if line.scene.name:
