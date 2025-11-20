@@ -11,11 +11,10 @@ def test_can_insert_and_query_project(session):
     session.refresh(project)
 
     # Query it back
-    result = session.query(Project).filter_by(slug='test-project').first()
+    result = session.query(Project).get(project.id)
 
     assert result is not None
     assert result.name == 'Test Project'
-    assert result.slug == 'test-project'
     assert result.id
 
 

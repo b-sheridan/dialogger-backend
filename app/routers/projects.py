@@ -12,7 +12,7 @@ router = APIRouter()
 
 @router.post('/', response_model=ProjectOut)
 def create_project(payload: ProjectCreate, db: Session = Depends(get_db)):
-    project = Project(name=payload.name, slug=payload.slug)
+    project = Project(name=payload.name)
     db.add(project)
     db.commit()
     db.refresh(project)

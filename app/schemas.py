@@ -5,7 +5,6 @@ from pydantic import BaseModel
 
 class ProjectBase(BaseModel):
     name: str
-    slug: str | None = None
 
 
 class ProjectCreate(ProjectBase):
