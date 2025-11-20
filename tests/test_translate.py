@@ -12,6 +12,7 @@ def test_get_prompt_doesnt_barf(example_scene):
 
 
 @pytest.mark.asyncio
+@pytest.mark.openai
 async def test_stream_translation(example_scene):
     async for token in stream_translation(example_scene.lines[-1]):
         assert token
